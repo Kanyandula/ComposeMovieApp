@@ -22,6 +22,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 fun MovieListScreen (
     isDarkTheme: Boolean,
     onToggleTheme : () -> Unit ,
+    onNavigateToMovieDetailScreen: (String) -> Unit,
     viewModel: MovieListViewModel
 
 ){
@@ -67,9 +68,7 @@ fun MovieListScreen (
                 onChangeMovieScrollPosition= viewModel::onChangeMovieScrollPosition,
                 page = page,
                 onNextPage = {viewModel.onTriggerEvent(MovieListEvent.NextPageEvent)},
-               onNavigationToMovieDetailScreen = {
-                  TODO("Navigate to detail screen")
-               }
+               onNavigationToMovieDetailScreen =  onNavigateToMovieDetailScreen
 
             )
 

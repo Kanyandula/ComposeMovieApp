@@ -21,6 +21,7 @@ import androidx.ui.tooling.preview.Preview
 import com.example.composemovieapp.R
 import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.presentation.components.util.SnackbarController
+import com.example.composemovieapp.presentation.navigation.Screen
 import com.example.composemovieapp.presentation.ui.movie_list.MovieListEvent
 import com.example.composemovieapp.util.PAGE_SIZE
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,7 +39,7 @@ fun MovieList(
     onChangeMovieScrollPosition: (Int) -> Unit,
     page: Int,
     onNextPage: () -> Unit,
-    onNavigationToMovieDetailScreen: (Int) -> Unit,
+    onNavigationToMovieDetailScreen: (String) -> Unit,
 
     ) {
     Box(
@@ -63,7 +64,8 @@ fun MovieList(
                       MovieCard(
                           movie = movie,
                           onClick = {
-                              movie.id?.let { onNavigationToMovieDetailScreen(it) }
+                              val route = Screen.MovieDetail.route + "/${movie.id}"
+                              onNavigationToMovieDetailScreen(route)
                           }
                       )
                   }

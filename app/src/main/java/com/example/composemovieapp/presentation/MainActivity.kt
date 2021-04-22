@@ -10,11 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.rememberNavController
-import com.example.composemovieapp.R
+import androidx.navigation.compose.*
 import com.example.composemovieapp.presentation.navigation.Screen
 import com.example.composemovieapp.presentation.ui.movie.MovieDetailScreen
 import com.example.composemovieapp.presentation.ui.movie.MovieViewModel
@@ -37,24 +33,30 @@ class MainActivity : AppCompatActivity() {
             val navController = rememberNavController()
             NavHost(navController = navController, startDestination = Screen.MovieList.route) {
 
-                composable(route = Screen.MovieList.route) { navBackStackEntry ->
+                composable(
+                    route = Screen.MovieList.route)
+                   { navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val viewModel: MovieListViewModel = viewModel("MovieListViewModel", factory)
                     MovieListScreen(
                         isDarkTheme =(application as BaseApplication).isDark.value,
                         onToggleTheme = (application as BaseApplication)
                         ::toggleLightTheme,
+                        onNavigateToMovieDetailScreen = navController::navigate,
                         viewModel =viewModel )
                 }
 
                 composable(
-                    route = Screen.MovieDetail.route
+                    route = Screen.MovieDetail.route + "/{movieId}",
+                    arguments = listOf(navArgument("movieId"){
+                        type = NavType.IntType
+                    })
                 ){ navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
-                    val viewModel: MovieViewModel = viewModel("MovieViewModel", factory)
+                    val viewModel: MovieViewModel = viewModel("MovieDetailViewModel", factory)
                     MovieDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
-                        movieId = 399566 ,
+                        movieId = navBackStackEntry.arguments?.getInt("movieId") ,
                         viewModel = viewModel )
 
                 }
