@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Movie Guru</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="watch_list">WatchList</string>
+    <string name="video">Video</string>
+
+
+</resources>

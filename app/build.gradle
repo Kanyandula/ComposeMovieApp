@@ -1,0 +1,111 @@
+import dependencies.AnnotationProcessing
+import dependencies.InstrumentationTest
+import dependencies.Jetbrains
+import dependencies.Square
+import dependencies.UnitTest
+import dependencies.Versions
+import dependencies.AndroidX
+import dependencies.Google
+import dependencies.Glide
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.example.composemovieapp"
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode Versions.versionCode
+        versionName Versions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = Versions.jvmTarget
+        useIR = true
+    }
+    composeOptions {
+        def kotlin_compiler_version = Versions.kotlin
+        kotlinCompilerVersion kotlin_compiler_version
+
+        def kotlin_compiler_extension_version = Versions.kotlin_compiler_extension
+        kotlinCompilerExtensionVersion kotlin_compiler_extension_version
+    }
+    packagingOptions {
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
+    }
+}
+
+dependencies {
+
+    implementation AndroidX.core_ktx
+    implementation AndroidX.app_compat
+    implementation AndroidX.constraint_layout
+    implementation AndroidX.ui_tooling
+    implementation AndroidX.compose_ui
+    implementation AndroidX.compose_foundation
+    implementation AndroidX.compose_material
+    implementation AndroidX.compose_icons_core
+    implementation AndroidX.compose_icons_extended
+    implementation AndroidX.navigation_compose
+    implementation AndroidX.navigation_hilt
+    implementation AndroidX.room_runtime
+    implementation AndroidX.room_ktx
+    implementation AndroidX.datastore
+    implementation AndroidX.hilt_lifecycle_viewmodel
+
+    implementation Google.material
+    implementation Google.hilt_android
+
+    implementation Glide.glide
+
+    implementation Jetbrains.kotlin_stdlib
+
+    implementation Square.retrofit
+    implementation Square.retrofit_gson
+    implementation Square.okHttp
+    implementation Square.leak_canary
+
+    kapt AnnotationProcessing.hilt_compiler
+    kapt AnnotationProcessing.glide_compiler
+    kapt AnnotationProcessing.room_compiler
+
+    // TESTING
+    testImplementation UnitTest.jupiter_api
+    testImplementation UnitTest.jupiter_params
+    testRuntimeOnly UnitTest.jupiter_engine
+
+    // Mock web server
+    testImplementation UnitTest.mock_web_server
+    testImplementation UnitTest.okHttp
+
+    // compose testing
+    implementation InstrumentationTest.compose_ui
+
+}
+
+
