@@ -68,6 +68,7 @@ fun MovieInfo(movie: Movie) {
             }
         }
     }
+    Spacer(Modifier.height(16.dp))
 }
 
 

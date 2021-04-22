@@ -21,7 +21,7 @@ import javax.inject.Named
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class MovieViewModel
+class MovieDetailViewModel
 @Inject
 constructor(
     private  val movieRepository: MovieRepository,
@@ -31,6 +31,7 @@ constructor(
     val movie: MutableState<Movie?> = mutableStateOf(null)
 
     val loading = mutableStateOf(false)
+    val onLoad:MutableState<Boolean> = mutableStateOf(false)
 
     init {
         // restore if process dies
