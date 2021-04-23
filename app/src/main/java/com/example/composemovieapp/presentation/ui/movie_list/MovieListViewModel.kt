@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composemovieapp.presentation.ui.movie_list.MovieListEvent.*
 import com.example.composemovieapp.domain.model.Movie
+import com.example.composemovieapp.interactors.movie_list.SearchMovies
 import com.example.composemovieapp.repository.MovieRepository
 import com.example.composemovieapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,7 @@ import javax.inject.Named
 class MovieListViewModel
 @Inject
 constructor(
+    private val searchMovies: SearchMovies,
     private val repository: MovieRepository,
     private @Named("api_key") val key: String,
     private val savedStateHandle: SavedStateHandle,
@@ -108,17 +110,21 @@ constructor(
     }
 
     //use case #1
-   private suspend fun newSearch() {
-            loading.value = true
-            resetSearchState()
-            delay(1000)
-            val result = repository.search(
-                key = key,
-                query = query.value,
-                page = 1
-            )
-            movies.value = result
-            loading.value = false
+    private suspend fun newSearch() {
+        loading.value = true
+
+        resetSearchState()
+
+        delay(2000)
+
+        val result = repository.search(
+            key = key,
+            page = 1,
+            query = query.value
+        )
+        movies.value = result
+
+        loading.value = false
     }
 
     //use case #2

@@ -28,9 +28,9 @@ fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
             shape = MaterialTheme.shapes.medium,
             ) {
             val image = loadPicture(url =  movie.imageUrl, defaultImage = DEFAULT_MOVIE_IMAGE).value
-            image?.let { img ->
+            if (image != null) {
                 Image(
-                    bitmap = img.asImageBitmap(),
+                    bitmap = image.asImageBitmap(),
                     contentDescription = "Movie Image",
                     modifier = Modifier
                         .fillMaxWidth()
@@ -42,15 +42,13 @@ fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
 
         ColumnSpacer(8)
         val padding = Modifier.padding(horizontal = 8.dp)
-        movie.title?.let {
-            Text(
-                text = it,
-                style = MaterialTheme.typography.body2,
-                maxLines = 2,
-                fontWeight = FontWeight.Bold,
-                modifier = padding
-            )
-        }
+        Text(
+            text = movie.title,
+            style = MaterialTheme.typography.body2,
+            maxLines = 2,
+            fontWeight = FontWeight.Bold,
+            modifier = padding
+        )
         ColumnSpacer(4)
 
             Text(

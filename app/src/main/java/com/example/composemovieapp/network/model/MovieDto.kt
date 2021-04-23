@@ -1,82 +1,56 @@
 package com.example.composemovieapp.network.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.Collections.emptyList
 
 class MovieDto(
 
-    @SerializedName("adult")
-    val adult: Boolean? = null,
-
     @SerializedName("backdrop_path")
-    val backdropPath: String? = null,
-
-    @SerializedName("genre_ids")
-    val genreIds: List<Int>? = listOf(),
+    val backdropPath: String,
 
     @SerializedName("genres")
-    val genres: List<Genre>? = null,
-
-    @SerializedName("belongs_to_collection")
-    val belongsToCollection: Any? = null,
-
-    @SerializedName("budget")
-    val budget: Int? = null,
+    val genres: List<Genre> = emptyList(),
 
     @SerializedName("homepage")
-    val homepage: String? = null,
+    val homepage: String,
 
     @SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
 
     @SerializedName("media_type")
-    val mediaType: String? = null,
-
-    @SerializedName("imdb_id")
-    val imdbId: String? = null,
+    val mediaType: String,
 
     @SerializedName("original_language")
-    val originalLanguage: String? = null,
+    val originalLanguage: String,
 
     @SerializedName("original_title")
-    val originalTitle: String? = null,
+    val originalTitle: String,
 
     @SerializedName("overview")
-    val overview: String? = null,
+    val overview: String,
 
     @SerializedName("popularity")
-    val popularity: Double? = null,
+    val popularity: Double,
 
     @SerializedName("poster_path")
-    val posterPath: String? = null,
+    val posterPath: String,
 
     @SerializedName("release_date")
-    val releaseDate: String? = null,
-
-    @SerializedName("revenue")
-    val revenue: Int? = null,
+    val releaseDate: String,
 
     @SerializedName("runtime")
-    val runtime: Int? = null,
+    val runtime: Int,
 
-    @SerializedName("spoken_languages")
-    val languages: List<Language>? = null,
 
     @SerializedName("status")
-    val status: String? = null,
-
-    @SerializedName("tagline")
-    val tagline: String? = null,
+    var status: String,
 
     @SerializedName("title")
-    val title: String? = null,
-
-    @SerializedName("video")
-    val video: Boolean? = null,
+    val title: String,
 
     @SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Double,
 
     @SerializedName("vote_count")
-    val voteCount: Int? = null
-
+    val voteCount: Int
         )

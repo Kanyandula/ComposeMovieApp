@@ -1,8 +1,10 @@
 package com.example.composemovieapp.network.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Language(
-    @SerializedName("name")
-    val name: String? = null
-)
+
+    val name: String
+): Parcelable
