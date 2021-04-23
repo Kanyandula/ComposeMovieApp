@@ -8,54 +8,54 @@ import androidx.room.PrimaryKey
 data class  MovieEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: Int? = null,
 
     @ColumnInfo(name ="backdrop_path")
-    var backdropPath: String,
+    var backdropPath: String? = null,
 
 //     @ColumnInfo(name ="genres")
 //    var genres:  String = "",
 
     @ColumnInfo(name ="homepage")
-    var homepage: String,
+    var homepage: String? = null,
 
     @ColumnInfo(name ="media_type")
-    var mediaType: String,
+    var mediaType: String? = null,
 
     @ColumnInfo(name ="original_language")
-    var originalLanguage: String,
+    var originalLanguage: String? = null,
 
     @ColumnInfo(name ="original_title")
-    var originalTitle: String,
+    var originalTitle: String? = null,
 
     @ColumnInfo(name ="overview")
-    var overview: String,
+    var overview: String? = null,
 
     @ColumnInfo(name ="popularity")
-    var popularity: Double,
+    var popularity: Double? =null,
 
     @ColumnInfo(name ="poster_path")
-    var posterPath: String,
+    var posterPath: String? = null,
 
     @ColumnInfo(name ="release_date")
-    var releaseDate: String,
+    var releaseDate: String? = null,
 
 
     @ColumnInfo(name ="runtime")
-    var runtime: Int,
+    var runtime: Int? = null,
 
 
     @ColumnInfo(name ="status")
-    var status: String,
+    var status: String? = null,
 
 
     @ColumnInfo(name ="title")
-    var title: String,
+    var title: String? = null,
 
 
     @ColumnInfo(name ="vote_average")
-    var voteAverage: Double,
+    var voteAverage: Double? = null,
 
     @ColumnInfo(name ="vote_count")
-    var voteCount: Int
+    var voteCount: Int? = null
 )

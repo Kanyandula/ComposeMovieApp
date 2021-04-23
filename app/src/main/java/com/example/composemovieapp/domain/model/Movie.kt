@@ -5,29 +5,40 @@ import com.example.composemovieapp.di.NetworkModule
 import com.example.composemovieapp.network.model.Genre
 import com.example.composemovieapp.util.movieDisplayDateFormat
 import com.example.composemovieapp.util.movieResponseDateFormat
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 import java.text.ParseException
 
 @Parcelize
 data class Movie(
+    val adult: Boolean? = null,
+    val backdrop_path: String? = null,
+    val genre_ids: List<Int>? = null ,
 
-    val backdrop_path: String,
-    val genres: List<Genre> = listOf(),
-    val homepage: String,
-    val id: Int,
-    val media_type: String,
-    val original_language: String,
-    val original_title: String,
-    var status: String,
-    val overview: String,
-    val popularity: Double,
-    val poster_path: String,
-    val release_date: String,
-    val runtime: Int,
-    val title: String,
-    val vote_average: Double,
-    val vote_count: Int
+    @SerializedName("genres")
+    val genres: List<Genre>? = null ,
+    val homepage: String? = null,
+    val status: String? = null,
+    val release_date: String? = null,
+    val media_type: String? = null,
+
+    val id: Int? = null,
+    @SerializedName("media_type")
+    val mediaType: String? = null,
+    val original_language: String? = null,
+    val original_title: String? = null,
+    val overview: String? = null,
+    val popularity: Double? = null,
+    val poster_path: String? = null,
+    @SerializedName("release_date", alternate = ["first_air_date"])
+    val releaseDate: String? = null,
+    @SerializedName("runtime")
+    val runtime: Int? = null,
+    val title: String? = null,
+    val video: Boolean? = null,
+    val vote_average: Double? = null,
+    val vote_count: Int? = null
 ) : Parcelable{
 
 
@@ -56,9 +67,7 @@ data class Movie(
 
     @IgnoredOnParcel
     val date: String get() {
-        return try {
-            release_date.let { movieResponseDateFormat.parse(release_date)?.let { movieDisplayDateFormat.format(it) } ?: "N/A" }
-        } catch (pe: ParseException) { "" }
+        return try { releaseDate?.let { movieResponseDateFormat.parse(releaseDate)?.let { movieDisplayDateFormat.format(it) } ?: "N/A" } ?: "" } catch (pe: ParseException) { "" }
     }
 }
 

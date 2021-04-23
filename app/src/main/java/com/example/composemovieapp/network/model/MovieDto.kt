@@ -6,51 +6,51 @@ import java.util.Collections.emptyList
 class MovieDto(
 
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String? = null,
 
     @SerializedName("genres")
-    val genres: List<Genre> = emptyList(),
+    val genres: List<Genre> ? = null,
 
     @SerializedName("homepage")
-    val homepage: String,
+    val homepage: String? = null,
 
     @SerializedName("id")
-    val id: Int,
+    val id: Int? = null,
 
     @SerializedName("media_type")
-    val mediaType: String,
+    val mediaType: String? = null,
 
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String? = null,
 
     @SerializedName("original_title")
-    val originalTitle: String,
+    val originalTitle: String? = null,
 
     @SerializedName("overview")
-    val overview: String,
+    val overview: String? = null,
 
     @SerializedName("popularity")
-    val popularity: Double,
+    val popularity: Double? = null,
 
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String? = null,
 
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: String? = null,
 
     @SerializedName("runtime")
-    val runtime: Int,
+    val runtime: Int? = null,
 
 
     @SerializedName("status")
-    var status: String,
+    var status: String? = null,
 
     @SerializedName("title")
-    val title: String,
+    val title: String? = null,
 
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Double? = null,
 
     @SerializedName("vote_count")
-    val voteCount: Int
+    val voteCount: Int? = null
         )

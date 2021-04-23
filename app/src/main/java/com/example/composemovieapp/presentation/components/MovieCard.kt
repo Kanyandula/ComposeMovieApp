@@ -42,13 +42,15 @@ fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
 
         ColumnSpacer(8)
         val padding = Modifier.padding(horizontal = 8.dp)
-        Text(
-            text = movie.title,
-            style = MaterialTheme.typography.body2,
-            maxLines = 2,
-            fontWeight = FontWeight.Bold,
-            modifier = padding
-        )
+        movie.title?.let {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.body2,
+                maxLines = 2,
+                fontWeight = FontWeight.Bold,
+                modifier = padding
+            )
+        }
         ColumnSpacer(4)
 
             Text(

@@ -17,20 +17,24 @@ import java.util.*
 fun MovieInfo(movie: Movie) {
     ColumnSpacer(16)
     val padding = Modifier.padding(horizontal = 16.dp)
-    Text(
-        text = movie.original_title,
+    movie.original_title?.let {
+        Text(
+        text = it,
         fontWeight = FontWeight.Bold,
         style = typography.h5,
         modifier = padding
     )
+    }
     ColumnSpacer(8)
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        Text(
-            text = movie.overview,
-            style = typography.body2,
-            maxLines = 15,
-            modifier = padding
-        )
+        movie.overview?.let {
+            Text(
+                text = it,
+                style = typography.body2,
+                maxLines = 15,
+                modifier = padding
+            )
+        }
     }
     Spacer(Modifier.height(8.dp))
     MovieMetadata(movie = movie, modifier = Modifier.padding(horizontal = 16.dp))
@@ -53,13 +57,15 @@ fun MovieInfo(movie: Movie) {
 
     ColumnSpacer(8)
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        movie.genres.genreToCommaSeparatedString().let {
-            Text(
-                text = it,
-                style = typography.body2,
-                maxLines = 4,
-                modifier = padding
-            )
+        movie.genres?.genreToCommaSeparatedString().let {
+            if (it != null) {
+                Text(
+                    text = it,
+                    style = typography.body2,
+                    maxLines = 4,
+                    modifier = padding
+                )
+            }
         }
     }
 }
@@ -77,7 +83,7 @@ fun MovieMetadata(
             background = MaterialTheme.colors.primary.copy(alpha = 0.8f)
         )
         withStyle(tagStyle) {
-            append("  ${movie.original_language.language()}  ")
+            append("  ${movie.original_language?.language()}  ")
         }
         append(divider)
         append(movie.date)
