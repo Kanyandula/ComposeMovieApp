@@ -16,6 +16,8 @@ import com.example.composemovieapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -110,47 +112,56 @@ constructor(
     }
 
     //use case #1
-    private suspend fun newSearch() {
-        loading.value = true
-
+    private  fun newSearch() {
+        Log.d(TAG,"newSearch : query: ${query.value}, page: ${page.value}")
         resetSearchState()
+        searchMovies.execute(key = key, page = page.value, query =
+        query.value).onEach { dataState ->
+            loading.value = dataState.loading
+            dataState.data?.let { list ->
+                movies.value = list
+            }
+            dataState.error?.let { error ->
+                Log.e(TAG, "newSearch: ${error}")
+                TODO("Handle error")
 
-        delay(2000)
 
-        val result = repository.search(
-            key = key,
-            page = 1,
-            query = query.value
-        )
-        movies.value = result
+            }
 
-        loading.value = false
+        }.launchIn(viewModelScope)
+
+
     }
 
     //use case #2
-   private suspend fun nextPage() {
-          //prevent duplicate event due to recompose happening too quickly
-            if((movieListScrollPosition + 1) >= (page.value * PAGE_SIZE)
-            ){
-                loading.value = true
-                incrementPage()
-                Log.d(TAG, "nextPage: triggered: ${page.value}")
+    private  fun nextPage() {
+        //prevent duplicate event due to recompose happening too quickly
+        if((movieListScrollPosition + 1) >= (page.value * PAGE_SIZE)
+        ){
+            loading.value = true
+            incrementPage()
+            Log.d(TAG, "nextPage: triggered: ${page.value}")
 
-                 delay( 1000)
+            if(page.value > 1){
+                searchMovies.execute(key = key, page = page.value, query =
+                query.value).onEach { dataState ->
+                    loading.value = dataState.loading
+                    dataState.data?.let { list ->
+                        appendMovies(list)
+                    }
+                    dataState.error?.let { error ->
+                        Log.e(TAG, "nextPage: ${error}")
+                        TODO("Handle error")
 
-                if(page.value > 1){
-                    val result = repository.search(
-                        key = key,
-                        query = query.value,
-                        page = page.value
-                    )
-                    Log.d(TAG, "nextPage:$result")
-                    appendMovies(result)
-                }
-                loading.value = false
+
+                    }
+
+                }.launchIn(viewModelScope)
+
+
             }
+        }
     }
-
     /**
      * Append new movies to the current list of movies
      */
