@@ -1,71 +1,77 @@
 package com.example.composemovieapp.presentation.ui.movie
 
-import android.util.Log
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.composemovieapp.presentation.components.LoadingMovieShimmer
 import com.example.composemovieapp.presentation.components.MovieView
 import com.example.composemovieapp.presentation.theme.AppTheme
 import com.example.composemovieapp.util.IMAGE_HEIGHT
-import com.example.composemovieapp.util.TAG
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+
+@ExperimentalMaterialApi
+@ExperimentalComposeUiApi
 @ExperimentalCoroutinesApi
 @Composable
 fun MovieDetailScreen(
     isDarkTheme: Boolean,
     movieId: Int?,
-    viewModel: MovieViewModel
-){
-    Log.d(TAG, "MovieDetailScreen: $viewModel")
-    Text("Movie Id: $movieId", style = MaterialTheme.typography.h2)
+    viewModel: MovieDetailViewModel
+) {
 
+    if (movieId == null) {
+        TODO("Show Invalid Movie")
+    } else {
+        val onLoad = viewModel.onLoad.value
+        if (!onLoad) {
+            viewModel.onLoad.value = true
+            viewModel.onTriggerEvent(MovieEvent.GetMovieEvent(movieId))
 
-//    val loading = viewModel.loading.value
-//    val movie = viewModel.movie.value
-//    val scaffoldState = rememberScaffoldState()
-//
-//    AppTheme(
-//        darkTheme = application.isDark.value,
-//        displayProgressBar = loading,
-//        scaffoldState = scaffoldState
-//
-//    ) {
-//        Scaffold(
-//            scaffoldState = scaffoldState,
-//            snackbarHost = {
-//                scaffoldState.snackbarHostState
-//            }
-//        ) {
-//            Box(modifier = Modifier.fillMaxSize()) {
-//                if (loading && movie == null)
-//                    LoadingMovieShimmer(imageHeight = IMAGE_HEIGHT.dp)
-//                else {
-//                    movie?.let {
-//                        if (it.id == 1) { // create a fake error
-//                            snackbarController.getScope().launch {
-//                                snackbarController.showSnackbar(
-//                                    scaffoldState = scaffoldState,
-//                                    message = "An error occurred with this ",
-//                                    actionLabel = "Ok"
-//                                )
-//                            }
-//                        } else {
-//                            MovieView(
-//                                movie = it,
-//
-//                                )
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//    }
+        }
+        val loading = viewModel.loading.value
+        val movie = viewModel.movie.value
+        val scaffoldState = rememberScaffoldState()
+
+        AppTheme(
+            darkTheme = isDarkTheme,
+            displayProgressBar = loading,
+            scaffoldState = scaffoldState
+
+        ) {
+            Scaffold(
+                scaffoldState = scaffoldState,
+                snackbarHost = {
+                    scaffoldState.snackbarHostState
+                }
+            ) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    if (loading && movie == null)
+                        LoadingMovieShimmer(imageHeight = IMAGE_HEIGHT.dp)
+                    else {
+                        movie?.let {
+                            if (it.id == 1) { // create a fake error
+
+                            } else {
+                                MovieView(
+                                    movie = it,
+
+                                    )
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
 }

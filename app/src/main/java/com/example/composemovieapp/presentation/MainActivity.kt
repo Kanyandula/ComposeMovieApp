@@ -13,7 +13,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import com.example.composemovieapp.presentation.navigation.Screen
 import com.example.composemovieapp.presentation.ui.movie.MovieDetailScreen
-import com.example.composemovieapp.presentation.ui.movie.MovieViewModel
+import com.example.composemovieapp.presentation.ui.movie.MovieDetailViewModel
 import com.example.composemovieapp.presentation.ui.movie_list.MovieListScreen
 import com.example.composemovieapp.presentation.ui.movie_list.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
                     })
                 ){ navBackStackEntry ->
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
-                    val viewModel: MovieViewModel = viewModel("MovieDetailViewModel", factory)
+                    val detailViewModel: MovieDetailViewModel = viewModel("MovieDetailViewModel", factory)
                     MovieDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
                         movieId = navBackStackEntry.arguments?.getInt("movieId") ,
-                        viewModel = viewModel )
+                        viewModel = detailViewModel )
 
                 }
             }

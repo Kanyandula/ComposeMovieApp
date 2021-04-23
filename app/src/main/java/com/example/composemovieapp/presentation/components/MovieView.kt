@@ -28,35 +28,40 @@ fun MovieView(
         item {
             movie.posterImage.let { url ->
                 val image = loadPicture(url = url, defaultImage = DEFAULT_MOVIE_IMAGE).value
-                image?.let { img ->
 
-                    Image(
-                        bitmap = img.asImageBitmap(),
-                        contentDescription = "Movie Featured Image",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(IMAGE_HEIGHT.dp),
-                        contentScale = ContentScale.Crop
-                    )
+
+                    image?.let { img ->
+
+
+                        Image(
+                            bitmap = img.asImageBitmap(),
+                            contentDescription = "Movie Featured Image",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(IMAGE_HEIGHT.dp),
+                            contentScale = ContentScale.Crop
+                        )
+
+                    }
 
                 }
 
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(6.dp)
+                ) {
+
+                    MovieInfo(movie = movie)
+
+                }
+
+
             }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(6.dp)
-            ) {
-
-                MovieInfo(movie = movie)
-
-            }
-
-
         }
     }
-}
+
+
 
 
 
