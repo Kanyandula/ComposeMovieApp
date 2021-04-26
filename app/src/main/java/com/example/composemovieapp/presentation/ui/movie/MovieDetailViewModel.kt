@@ -3,18 +3,20 @@ package com.example.composemovieapp.presentation.ui.movie
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composemovieapp.domain.model.Movie
-import com.example.composemovieapp.repository.MovieRepository
+import com.example.composemovieapp.interactors.movie_detail.GetMovie
+
 import com.example.composemovieapp.util.STATE_KEY_MOVIE
 import com.example.composemovieapp.util.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -24,8 +26,8 @@ import javax.inject.Named
 class MovieDetailViewModel
 @Inject
 constructor(
-    private  val movieRepository: MovieRepository,
-    private @Named("api_key") val key: String,
+    private  val getMovie: GetMovie,
+    @Named("api_key") private val key: String,
     private val state: SavedStateHandle,
 ): ViewModel(){
     val movie: MutableState<Movie?> = mutableStateOf(null)
@@ -58,14 +60,19 @@ constructor(
         }
     }
 
-    private suspend fun getMovieDetails(id: Int){
-        loading.value = true
-        // simulate a delay to show loading
-        delay(1000)
-        val movie = movieRepository.getDetails( id=id)
-        this.movie.value = movie
-        state.set(STATE_KEY_MOVIE, movie.id)
-        loading.value = false
+    private  fun getMovieDetails(id: Int){
+        getMovie.execute(id).onEach { dataState ->
+            loading.value = dataState.loading
+            dataState.data?.let { data ->
+                movie.value = data
+                state.set(STATE_KEY_MOVIE, data.id)
+            }
+            dataState.error?.let { error ->
+                Log.e(TAG,"getMovie: ${error}")
+                //TODO("handle error")
+            }
+
+        }.launchIn(viewModelScope)
     }
 
 

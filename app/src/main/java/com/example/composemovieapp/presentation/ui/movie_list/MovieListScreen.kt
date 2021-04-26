@@ -43,6 +43,7 @@ fun MovieListScreen (
 
         Scaffold(
             topBar = {
+
                 SearchAppBar(
                     query = query,
                     onQueryChanged = viewModel::onQueryChanged,

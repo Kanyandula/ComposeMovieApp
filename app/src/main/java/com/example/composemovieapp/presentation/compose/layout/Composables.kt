@@ -16,15 +16,17 @@ import java.util.*
 @Composable
 fun MovieInfo(movie: Movie) {
     ColumnSpacer(16)
-    val padding = Modifier.padding(horizontal = 16.dp)
-    movie.original_title?.let {
-        Text(
-        text = it,
-        fontWeight = FontWeight.Bold,
-        style = typography.h5,
-        modifier = padding
-    )
-    }
+
+        val padding = Modifier.padding(horizontal = 16.dp)
+        movie.original_title?.let {
+            Text(
+                text = it,
+                fontWeight = FontWeight.Bold,
+                style = typography.h5,
+                modifier = padding
+            )
+        }
+
     ColumnSpacer(8)
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
         movie.overview?.let {
@@ -92,6 +94,7 @@ fun MovieMetadata(
         append(movie.rating)
         append(divider)
         append(movie.runTime)
+
 
     }
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {

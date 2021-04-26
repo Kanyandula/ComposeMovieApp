@@ -53,4 +53,4 @@ class MovieDto(
 
     @SerializedName("vote_count")
     val voteCount: Int? = null
-        )
+)

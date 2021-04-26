@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LoadingMovieShimmer(
     imageHeight: Dp,
-    padding: Dp = 16.dp
+    padding: Dp = 8.dp
 ) {
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize()

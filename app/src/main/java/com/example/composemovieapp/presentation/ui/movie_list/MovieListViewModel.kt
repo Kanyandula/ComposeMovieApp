@@ -3,19 +3,18 @@ package com.example.composemovieapp.presentation.ui.movie_list
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
+
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composemovieapp.presentation.ui.movie_list.MovieListEvent.*
 import com.example.composemovieapp.domain.model.Movie
+import com.example.composemovieapp.interactors.movie_list.RestoreMovies
 import com.example.composemovieapp.interactors.movie_list.SearchMovies
-import com.example.composemovieapp.repository.MovieRepository
 import com.example.composemovieapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -28,7 +27,7 @@ class MovieListViewModel
 @Inject
 constructor(
     private val searchMovies: SearchMovies,
-    private val repository: MovieRepository,
+    private val restoreMovies: RestoreMovies,
     private @Named("api_key") val key: String,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -36,6 +35,8 @@ constructor(
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
 
     val query = mutableStateOf("Movie")
+
+
 
     val selectedCategory: MutableState<MovieGenre?> = mutableStateOf(null)
 
@@ -96,19 +97,22 @@ constructor(
         }
     }
 
-    private suspend fun restoreState(){
-        loading.value = true
-        // Must retrieve each page of results.
-        val results: MutableList<Movie> = mutableListOf()
-        for(p in 1..page.value){
-            Log.d(TAG, "restoreState: page: ${p}, query: ${query.value}")
-            val result = repository.search(key = key, page = p, query = query.value )
-            results.addAll(result)
-            if(p == page.value){ // done
-                movies.value = results
-                loading.value = false
+    private  fun restoreState(){
+        restoreMovies.execute( page = page.value, query =
+        query.value).onEach { dataState ->
+            loading.value = dataState.loading
+            dataState.data?.let { list ->
+                movies.value = list
             }
-        }
+            dataState.error?.let { error ->
+                Log.e(TAG, "restoreState: ${error}")
+                // TODO("Handle error")
+
+
+            }
+
+        }.launchIn(viewModelScope)
+
     }
 
     //use case #1
@@ -123,7 +127,7 @@ constructor(
             }
             dataState.error?.let { error ->
                 Log.e(TAG, "newSearch: ${error}")
-                TODO("Handle error")
+               // TODO("Handle error")
 
 
             }
@@ -151,7 +155,7 @@ constructor(
                     }
                     dataState.error?.let { error ->
                         Log.e(TAG, "nextPage: ${error}")
-                        TODO("Handle error")
+                       // TODO("Handle error")
 
 
                     }

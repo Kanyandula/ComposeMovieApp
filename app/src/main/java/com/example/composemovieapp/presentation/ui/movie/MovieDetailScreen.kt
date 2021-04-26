@@ -3,6 +3,8 @@ package com.example.composemovieapp.presentation.ui.movie
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
@@ -52,7 +54,8 @@ fun MovieDetailScreen(
                     scaffoldState.snackbarHostState
                 }
             ) {
-                Box(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.fillMaxWidth()
+                    .padding(8.dp) ) {
                     if (loading && movie == null)
                         LoadingMovieShimmer(imageHeight = IMAGE_HEIGHT.dp)
                     else {

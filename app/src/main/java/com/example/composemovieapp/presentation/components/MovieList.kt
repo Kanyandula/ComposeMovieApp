@@ -1,5 +1,6 @@
 package com.example.composemovieapp.presentation.components
 
+import LoadingMovieListShimmer
 import android.os.Bundle
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -47,6 +48,12 @@ fun MovieList(
             .background(color = MaterialTheme.colors.surface)
 
     ) {
+        if (loading && movies.isEmpty()) {
+                LoadingMovieListShimmer(imageHeight = 250.dp,)
+
+        } else if (movies.isEmpty()) {
+            NothingHere()
+        } else {
 
 
             LazyVerticalGrid(
@@ -60,20 +67,25 @@ fun MovieList(
                         onNextPage()
 
                     }
-                  Box(modifier = Modifier.fillMaxWidth(0.5f)){
-                      MovieCard(
-                          movie = movie,
-                          onClick = {
-                              val route = Screen.MovieDetail.route + "/${movie.id}"
-                              onNavigationToMovieDetailScreen(route)
-                          }
-                      )
-                  }
+                    Box(
+                        modifier = Modifier.fillMaxWidth(0.5f)
+                            .padding(8.dp)
+                    ) {
+                        MovieCard(
+                            movie = movie,
+                            onClick = {
+                                val route = Screen.MovieDetail.route + "/${movie.id}"
+                                onNavigationToMovieDetailScreen(route)
+                            }
+                        )
+                    }
 
                 }
             }
         }
     }
+}
+
 
 
 
