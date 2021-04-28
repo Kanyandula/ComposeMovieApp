@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.interactors.movie_detail.GetMovie
+import com.example.composemovieapp.presentation.ui.util.DialogQueue
 
 import com.example.composemovieapp.util.STATE_KEY_MOVIE
 import com.example.composemovieapp.util.TAG
@@ -34,6 +35,7 @@ constructor(
 
     val loading = mutableStateOf(false)
     val onLoad:MutableState<Boolean> = mutableStateOf(false)
+    val dialogQueue = DialogQueue()
 
     init {
         // restore if process dies
@@ -69,7 +71,7 @@ constructor(
             }
             dataState.error?.let { error ->
                 Log.e(TAG,"getMovie: ${error}")
-                //TODO("handle error")
+                dialogQueue.appendErrorMessage("Error", error)
             }
 
         }.launchIn(viewModelScope)

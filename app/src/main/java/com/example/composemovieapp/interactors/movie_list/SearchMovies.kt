@@ -32,6 +32,11 @@ class SearchMovies(
             // for pagination sake
             delay(1000)
 
+            //force error for testing
+            if (query == "error"){
+                throw  Exception("Search FAILED")
+            }
+
             val movies = getMoviesFromNetwork(key = key, page= page, query =  query )
 
             //insert into the cache

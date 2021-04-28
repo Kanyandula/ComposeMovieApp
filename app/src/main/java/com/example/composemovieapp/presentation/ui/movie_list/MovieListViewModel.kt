@@ -11,6 +11,7 @@ import com.example.composemovieapp.presentation.ui.movie_list.MovieListEvent.*
 import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.interactors.movie_list.RestoreMovies
 import com.example.composemovieapp.interactors.movie_list.SearchMovies
+import com.example.composemovieapp.presentation.ui.util.DialogQueue
 import com.example.composemovieapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,17 +34,13 @@ constructor(
 ) : ViewModel() {
 
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
-
     val query = mutableStateOf("Movie")
-
-
-
     val selectedCategory: MutableState<MovieGenre?> = mutableStateOf(null)
-
     var categoryScrollPosition: Float = 0f
     val loading = mutableStateOf(false)
     val page = mutableStateOf(1)
     private var movieListScrollPosition = 0
+    val dialogQueue = DialogQueue()
 
 
     init {
@@ -106,7 +103,7 @@ constructor(
             }
             dataState.error?.let { error ->
                 Log.e(TAG, "restoreState: ${error}")
-                // TODO("Handle error")
+                dialogQueue.appendErrorMessage("Error", error)
 
 
             }
@@ -127,8 +124,9 @@ constructor(
             }
             dataState.error?.let { error ->
                 Log.e(TAG, "newSearch: ${error}")
-               // TODO("Handle error")
-
+               dialogQueue.appendErrorMessage("Error", error)
+                dialogQueue.appendErrorMessage("AnotherError", error)
+                dialogQueue.appendErrorMessage("A Third Error", error)
 
             }
 
@@ -155,7 +153,7 @@ constructor(
                     }
                     dataState.error?.let { error ->
                         Log.e(TAG, "nextPage: ${error}")
-                       // TODO("Handle error")
+                        dialogQueue.appendErrorMessage("Error", error)
 
 
                     }

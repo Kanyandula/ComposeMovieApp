@@ -40,12 +40,14 @@ fun MovieDetailScreen(
         }
         val loading = viewModel.loading.value
         val movie = viewModel.movie.value
+        val dialogQueue = viewModel.dialogQueue
         val scaffoldState = rememberScaffoldState()
 
         AppTheme(
             darkTheme = isDarkTheme,
             displayProgressBar = loading,
-            scaffoldState = scaffoldState
+            scaffoldState = scaffoldState,
+            dialogQueue = dialogQueue.queue.value
 
         ) {
             Scaffold(
