@@ -1,5 +1,6 @@
 package com.example.composemovieapp.cache.model
 
+
 import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.domain.util.DomainMapper
 import com.example.composemovieapp.network.model.Genre
@@ -14,6 +15,7 @@ class MovieEntityMapper : DomainMapper<MovieEntity, Movie>{
             media_type = model.mediaType,
             overview = model.overview,
             runtime = model.runtime,
+            genres = model.genres,
             original_title = model.originalTitle,
             original_language = model.originalLanguage,
             title = model.title,
@@ -37,6 +39,7 @@ class MovieEntityMapper : DomainMapper<MovieEntity, Movie>{
             mediaType = domainModel.media_type,
             originalLanguage = domainModel.original_language,
             originalTitle = domainModel.original_title,
+            genres = domainModel.genres,
             overview = domainModel.overview,
             popularity = domainModel.popularity,
             posterPath = domainModel.poster_path,
@@ -63,9 +66,20 @@ class MovieEntityMapper : DomainMapper<MovieEntity, Movie>{
 private fun convertGenreListToString(genres: List<Genre>): String {
     val genresString = StringBuilder()
     for(genre in genres){
-        genresString.append("$genre,")
+        genresString.append("${genre.name},")
     }
     return genresString.toString()
 }
+
+private fun convertGenresToList(genresString: String?): List<Genre> {
+    val list: ArrayList<Genre> = ArrayList()
+    genresString?.let {
+        //for(genre  in it.split(",")){}
+            list.add(Genre(name = String()))
+
+    }
+    return list
+}
+
 
 

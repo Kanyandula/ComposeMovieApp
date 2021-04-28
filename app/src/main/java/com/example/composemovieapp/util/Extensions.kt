@@ -13,16 +13,16 @@ fun List<Genre>.genreToCommaSeparatedString(): String {
 private fun convertGenreListToString(genres: List<Genre>): String {
     val genresString = StringBuilder()
     for(genre in genres){
-        genresString.append("$genre,")
+        genresString.append("${genre},")
     }
     return genresString.toString()
 }
 
-private fun convertGenresToList(genresString: String?): ArrayList<String> {
+private fun convertGenresToList(genresString: Genre?):  List<String> {
     val list: ArrayList<String> = ArrayList()
     genresString?.let {
-        for(genre  in it.split(",")){
-            list.add(genre )
+        for(genre  in it.toString()){
+            list.add(genre.toString())
         }
     }
     return list

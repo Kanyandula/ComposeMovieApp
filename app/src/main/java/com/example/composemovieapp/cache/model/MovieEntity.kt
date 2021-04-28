@@ -1,8 +1,14 @@
 package com.example.composemovieapp.cache.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.example.composemovieapp.network.model.Genre
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "movies")
 data class  MovieEntity(
@@ -12,9 +18,6 @@ data class  MovieEntity(
 
     @ColumnInfo(name ="backdrop_path")
     var backdropPath: String? = null,
-
-//     @ColumnInfo(name ="genres")
-//    var genres:  String = "",
 
     @ColumnInfo(name ="homepage")
     var homepage: String? = null,
@@ -57,5 +60,46 @@ data class  MovieEntity(
     var voteAverage: Double? = null,
 
     @ColumnInfo(name ="vote_count")
-    var voteCount: Int? = null
+    var voteCount: Int? = null,
+
+    @ColumnInfo(name ="genres")
+    var genres:  List<Genre> = listOf(),
 )
+
+
+
+class Converters {
+
+    @TypeConverter
+    fun listToJson(value: List<Genre>?) = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<Genre>::class.java).toList()
+}
+
+class StringListConverter {
+    @TypeConverter
+    fun fromString(stringListString: String): ArrayList<Genre> {
+
+        val listType =  object  : TypeToken<ArrayList<String>>(){}.type
+        return Gson().fromJson(stringListString, listType)
+    }
+
+    @TypeConverter
+    fun toString(stringList: List<Genre>?): String {
+        return Gson().toJson(stringList)
+    }
+}
+
+class StringListConverter1 {
+    @TypeConverter
+    fun fromString(stringListString: Genre): List<String> {
+        return stringListString.name.split(",").map { it }
+    }
+
+    @TypeConverter
+    fun toString(stringList: List<Genre>): String {
+        return stringList.joinToString(separator = ",")
+    }
+}
+

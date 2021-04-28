@@ -93,7 +93,7 @@ fun MovieMetadata(
         append(divider)
         append(movie.rating)
         append(divider)
-        append(movie.runTime)
+        movie.media_type?.let { append(it.toUpperCase(Locale.ROOT)) }
 
 
     }

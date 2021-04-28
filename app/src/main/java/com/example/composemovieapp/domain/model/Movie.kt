@@ -14,15 +14,13 @@ import java.text.ParseException
 data class Movie(
     val adult: Boolean? = null,
     val backdrop_path: String? = null,
-    val genre_ids: List<Int>? = null ,
-
+    val genre_ids: List<Int>? = null,
     @SerializedName("genres")
-    val genres: List<Genre>? = null ,
+    val genres: List<Genre> = listOf(),
     val homepage: String? = null,
     val status: String? = null,
     val release_date: String? = null,
     val media_type: String? = null,
-
     val id: Int? = null,
     @SerializedName("media_type")
     val mediaType: String? = null,
@@ -33,7 +31,6 @@ data class Movie(
     val poster_path: String? = null,
     @SerializedName("release_date", alternate = ["first_air_date"])
     val releaseDate: String? = null,
-    @SerializedName("runtime")
     val runtime: Int? = null,
     val title: String? = null,
     val video: Boolean? = null,
