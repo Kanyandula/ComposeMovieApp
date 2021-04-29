@@ -21,6 +21,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun MovieListScreen (
     isDarkTheme: Boolean,
+    isNetworkAvailable:Boolean,
     onToggleTheme : () -> Unit ,
     onNavigateToMovieDetailScreen: (String) -> Unit,
     viewModel: MovieListViewModel
@@ -38,6 +39,7 @@ fun MovieListScreen (
     val scaffoldState = rememberScaffoldState()
     AppTheme(
         darkTheme = isDarkTheme,
+        isNetworkAvailable = isNetworkAvailable,
         displayProgressBar = loading,
         scaffoldState = scaffoldState,
         dialogQueue = dialogQueue.queue.value

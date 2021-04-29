@@ -53,6 +53,7 @@ fun H3(text: String,  modifier: Modifier = Modifier){
 @Composable
 fun AppTheme(
     darkTheme: Boolean,
+    isNetworkAvailable: Boolean,
     displayProgressBar: Boolean,
     scaffoldState: ScaffoldState,
     dialogQueue: Queue<GenericDialogInfo>,
@@ -68,7 +69,11 @@ fun AppTheme(
                 .fillMaxSize()
                 .background(color = if (!darkTheme) Grey1 else Color.Black)
         ) {
-            content()
+            Column{
+                ConnectivityMonitor(isNetworkAvailable = isNetworkAvailable)
+                content()
+            }
+
             CircularIndeterminateProgressBar(isDisplayed = displayProgressBar, 0.3f)
             ProcessDialogQueue(dialogQueue = dialogQueue)
         }

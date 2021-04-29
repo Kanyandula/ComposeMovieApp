@@ -25,6 +25,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Composable
 fun MovieDetailScreen(
     isDarkTheme: Boolean,
+    isNetworkAvailable: Boolean,
     movieId: Int?,
     viewModel: MovieDetailViewModel
 ) {
@@ -45,6 +46,7 @@ fun MovieDetailScreen(
 
         AppTheme(
             darkTheme = isDarkTheme,
+            isNetworkAvailable = isNetworkAvailable,
             displayProgressBar = loading,
             scaffoldState = scaffoldState,
             dialogQueue = dialogQueue.queue.value

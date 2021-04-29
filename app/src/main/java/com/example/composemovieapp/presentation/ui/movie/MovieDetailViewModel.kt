@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.interactors.movie_detail.GetMovie
 import com.example.composemovieapp.presentation.ui.util.DialogQueue
+import com.example.composemovieapp.presentation.util.ConnectivityManager
 
 import com.example.composemovieapp.util.STATE_KEY_MOVIE
 import com.example.composemovieapp.util.TAG
@@ -28,6 +29,7 @@ class MovieDetailViewModel
 @Inject
 constructor(
     private  val getMovie: GetMovie,
+    private val connectivityManager: ConnectivityManager,
     @Named("api_key") private val key: String,
     private val state: SavedStateHandle,
 ): ViewModel(){
@@ -63,7 +65,7 @@ constructor(
     }
 
     private  fun getMovieDetails(id: Int){
-        getMovie.execute(id).onEach { dataState ->
+        getMovie.execute(id,connectivityManager.isNetworkAvailable.value).onEach { dataState ->
             loading.value = dataState.loading
             dataState.data?.let { data ->
                 movie.value = data

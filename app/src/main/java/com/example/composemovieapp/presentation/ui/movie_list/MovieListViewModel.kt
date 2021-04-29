@@ -12,6 +12,7 @@ import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.interactors.movie_list.RestoreMovies
 import com.example.composemovieapp.interactors.movie_list.SearchMovies
 import com.example.composemovieapp.presentation.ui.util.DialogQueue
+import com.example.composemovieapp.presentation.util.ConnectivityManager
 import com.example.composemovieapp.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +30,7 @@ class MovieListViewModel
 constructor(
     private val searchMovies: SearchMovies,
     private val restoreMovies: RestoreMovies,
+    private val connectivityManager: ConnectivityManager,
     private @Named("api_key") val key: String,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -117,7 +119,7 @@ constructor(
         Log.d(TAG,"newSearch : query: ${query.value}, page: ${page.value}")
         resetSearchState()
         searchMovies.execute(key = key, page = page.value, query =
-        query.value).onEach { dataState ->
+        query.value, connectivityManager.isNetworkAvailable.value).onEach { dataState ->
             loading.value = dataState.loading
             dataState.data?.let { list ->
                 movies.value = list
@@ -146,7 +148,7 @@ constructor(
 
             if(page.value > 1){
                 searchMovies.execute(key = key, page = page.value, query =
-                query.value).onEach { dataState ->
+                query.value, connectivityManager.isNetworkAvailable.value ).onEach { dataState ->
                     loading.value = dataState.loading
                     dataState.data?.let { list ->
                         appendMovies(list)

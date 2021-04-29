@@ -1,5 +1,6 @@
 package com.example.composemovieapp.presentation
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -18,6 +19,7 @@ import com.example.composemovieapp.presentation.ui.movie_list.MovieListScreen
 import com.example.composemovieapp.presentation.ui.movie_list.MovieListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
 
 
 @ExperimentalCoroutinesApi
@@ -26,7 +28,21 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var connectivityManager:com.example.composemovieapp.presentation.util.ConnectivityManager
 
+
+
+
+    override fun onStart() {
+        super.onStart()
+        connectivityManager.registerConnectionObserver(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        connectivityManager.unregisterConnectionObserver(this)
+    }
 
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                     val viewModel: MovieListViewModel = viewModel("MovieListViewModel", factory)
                     MovieListScreen(
                         isDarkTheme =(application as BaseApplication).isDark.value,
+                        isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
                         onToggleTheme = (application as BaseApplication)
                         ::toggleLightTheme,
                         onNavigateToMovieDetailScreen = navController::navigate,
@@ -58,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                     val detailViewModel: MovieDetailViewModel = viewModel("MovieDetailViewModel", factory)
                     MovieDetailScreen(
                         isDarkTheme = (application as BaseApplication).isDark.value,
+                        isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
                         movieId = navBackStackEntry.arguments?.getInt("movieId") ,
                         viewModel = detailViewModel )
 

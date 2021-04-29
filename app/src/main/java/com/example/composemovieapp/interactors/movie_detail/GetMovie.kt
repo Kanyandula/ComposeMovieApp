@@ -21,6 +21,7 @@ class GetMovie (
     ){
     fun execute(
         movieId: Int,
+        isNetworkAvailable: Boolean,
     ): Flow<DataState<Movie>> = flow {
         try {
             emit(DataState.loading<Movie>())
@@ -30,10 +31,16 @@ class GetMovie (
             if (movie != null){
                emit(DataState.success(movie))
             }else{
-                val networkMovie = getMovieFromNetwork(movieId)
-                movieDao.insertMovie(
-                    entityMapper.mapFromDomainModel(networkMovie)
-                )
+                if(isNetworkAvailable){
+                    //get movie from network
+                    val networkMovie = getMovieFromNetwork(movieId) //dto -> domain
+
+                    //insert into cache
+                    movieDao.insertMovie(
+                        entityMapper.mapFromDomainModel(networkMovie)
+                    )
+
+                }
 
                 movie = getMovieFromCache(movieId)
                 if (movie != null){
