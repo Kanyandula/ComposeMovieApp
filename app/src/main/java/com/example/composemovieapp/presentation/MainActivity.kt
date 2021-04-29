@@ -12,6 +12,7 @@ import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import com.example.composemovieapp.datastore.SettingsDataStore
 import com.example.composemovieapp.presentation.navigation.Screen
 import com.example.composemovieapp.presentation.ui.movie.MovieDetailScreen
 import com.example.composemovieapp.presentation.ui.movie.MovieDetailViewModel
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var connectivityManager:com.example.composemovieapp.presentation.util.ConnectivityManager
+    @Inject
+    lateinit var settingsDataStore: SettingsDataStore
 
 
 
@@ -57,10 +60,10 @@ class MainActivity : AppCompatActivity() {
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val viewModel: MovieListViewModel = viewModel("MovieListViewModel", factory)
                     MovieListScreen(
-                        isDarkTheme =(application as BaseApplication).isDark.value,
+                        isDarkTheme =settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
-                        onToggleTheme = (application as BaseApplication)
-                        ::toggleLightTheme,
+                        onToggleTheme = settingsDataStore
+                        ::toggleTheme,
                         onNavigateToMovieDetailScreen = navController::navigate,
                         viewModel =viewModel )
                 }
@@ -74,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     val factory = HiltViewModelFactory(LocalContext.current, navBackStackEntry)
                     val detailViewModel: MovieDetailViewModel = viewModel("MovieDetailViewModel", factory)
                     MovieDetailScreen(
-                        isDarkTheme = (application as BaseApplication).isDark.value,
+                        isDarkTheme = settingsDataStore.isDark.value,
                         isNetworkAvailable = connectivityManager.isNetworkAvailable.value,
                         movieId = navBackStackEntry.arguments?.getInt("movieId") ,
                         viewModel = detailViewModel )
