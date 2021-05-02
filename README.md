@@ -4,11 +4,12 @@ An Android application that provides both online and offline search functionalit
 <img src="https://media.giphy.com/media/G4qul3p4Nodwnsp4KA/giphy.gif" width="300"/> | <img src="https://media.giphy.com/media/cyqNbrkq8MZGKLsZNB/giphy.gif" width="300"/>
 
 #### Features:
-- Kotlin
+- [Kotlin](https://kotlinlang.org/) 
 - MVVM
 - Compose navigation (one activity, zero fragments)
 - Retrieve Network Data from API (REST API)
-- Database caching (Room)
+- [Retrofit2 & OkHttp3](https://github.com/square/retrofit) 
+- Database caching ([Room](https://developer.android.com/topic/libraries/architecture/room))
 - Pagination
 - Monitoring Network Connectivity
 - Dependency Injection (HILT)
@@ -16,7 +17,7 @@ An Android application that provides both online and offline search functionalit
 - Datastore (New Shared Preferences)
 - Unit Testing (Junit5)
 - MockWebServer (Okhttp)
-- Kotlin Flow
+- Kotlin [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) 
 - Dependency management with Kotlin kts
 - Queue system for managing error messages (Dialogs)
   "First in first out"
