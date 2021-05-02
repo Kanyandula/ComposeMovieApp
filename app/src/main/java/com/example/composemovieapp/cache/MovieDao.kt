@@ -10,6 +10,7 @@ import com.example.composemovieapp.util.PAGE_SIZE
 @Dao
 interface MovieDao {
 
+
     @Insert
     suspend fun insertMovie(movie: MovieEntity): Long
 

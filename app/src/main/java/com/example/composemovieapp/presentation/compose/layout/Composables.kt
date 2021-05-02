@@ -59,15 +59,13 @@ fun MovieInfo(movie: Movie) {
 
     ColumnSpacer(8)
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        movie.genres?.genreToCommaSeparatedString().let {
-            if (it != null) {
-                Text(
+        movie.genres.genreToCommaSeparatedString().let {
+            Text(
                     text = it,
                     style = typography.body2,
                     maxLines = 4,
                     modifier = padding
                 )
-            }
         }
     }
     Spacer(Modifier.height(16.dp))

@@ -68,4 +68,6 @@ class GetMovie (
             Movie{
         return movieDtoMapper.mapToDomainModel(retrofitService.getDetails(movieId))
     }
+
+
 }

@@ -1,7 +1,7 @@
 package com.example.composemovieapp.network
 
-import com.example.composemovieapp.domain.model.Movie
 import com.example.composemovieapp.network.model.MovieDto
+import com.example.composemovieapp.network.response.CreditResponse
 import com.example.composemovieapp.network.response.MovieSearchResponse
 import com.example.composemovieapp.util.MOVIE_DETAILS_URL
 import retrofit2.Response
@@ -33,5 +33,11 @@ interface RetrofitService {
         @Path("movie_id") id: Int,
 
     ): MovieDto
+
+    @GET("{media_type}/{id}/credits")
+    suspend fun credits(
+        @Path("media_type") mediaType: String,
+        @Path("id") id: Int
+    ): Response<CreditResponse>
 
 }

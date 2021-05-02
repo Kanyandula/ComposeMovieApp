@@ -31,12 +31,12 @@ constructor(
     private val searchMovies: SearchMovies,
     private val restoreMovies: RestoreMovies,
     private val connectivityManager: ConnectivityManager,
-    private @Named("api_key") val key: String,
+    @Named("api_key") private val key: String,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     val movies: MutableState<List<Movie>> = mutableStateOf(ArrayList())
-    val query = mutableStateOf("Movie")
+    val query = mutableStateOf("Batman")
     val selectedCategory: MutableState<MovieGenre?> = mutableStateOf(null)
     var categoryScrollPosition: Float = 0f
     val loading = mutableStateOf(false)
@@ -127,8 +127,7 @@ constructor(
             dataState.error?.let { error ->
                 Log.e(TAG, "newSearch: ${error}")
                dialogQueue.appendErrorMessage("Error", error)
-                dialogQueue.appendErrorMessage("AnotherError", error)
-                dialogQueue.appendErrorMessage("A Third Error", error)
+
 
             }
 

@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.composemovieapp.util.TAG
 import java.io.IOException
 import java.net.InetSocketAddress
-import java.net.Socket
 import javax.net.SocketFactory
 
 object DoesNetworkHaveInternet {

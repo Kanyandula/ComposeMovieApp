@@ -1,11 +1,9 @@
 package com.example.composemovieapp.interactors.movie_list
 
-import android.app.DownloadManager
 import com.example.composemovieapp.cache.MovieDao
 import com.example.composemovieapp.cache.model.MovieEntityMapper
 import com.example.composemovieapp.domain.data.DataState
 import com.example.composemovieapp.domain.model.Movie
-import com.example.composemovieapp.domain.util.DomainMapper
 import com.example.composemovieapp.network.RetrofitService
 import com.example.composemovieapp.network.model.MovieDtoMapper
 import com.example.composemovieapp.util.PAGE_SIZE
@@ -28,7 +26,7 @@ class SearchMovies(
        isNetworkAvailable:Boolean,
     ) : Flow<DataState<List<Movie>>> = flow {
         try {
-            emit(DataState.loading<List<Movie>>())
+            emit(DataState.loading<List<Movie>>()) // flow emission 1 (0)
 
             // for pagination sake
             delay(1000)
@@ -64,9 +62,7 @@ class SearchMovies(
 
             //emit List<Movie> from the cache
             val  list = entityMapper.fromEntityList(cacheResult)
-            emit(DataState.success(list))
-
-
+            emit(DataState.success(list)) // flow emission 2(1)
         }catch (e: Exception){
             emit(DataState.error<List<Movie>>(e.message?: "Unknown error"))
         }

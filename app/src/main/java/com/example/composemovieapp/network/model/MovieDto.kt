@@ -1,5 +1,6 @@
 package com.example.composemovieapp.network.model
 
+
 import com.google.gson.annotations.SerializedName
 
 
@@ -9,7 +10,7 @@ class MovieDto(
     val backdropPath: String? = null,
 
     @SerializedName("genres")
-    val genres: List<Genre> = listOf(),
+    val genres:List<Genre> = listOf(),
 
     @SerializedName("homepage")
     val homepage: String? = null,

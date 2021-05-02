@@ -2,7 +2,6 @@ package com.example.composemovieapp.presentation.ui.util
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Outline
 import com.example.composemovieapp.presentation.components.GenericDialogInfo
 import com.example.composemovieapp.presentation.components.PositiveAction
 import java.util.*

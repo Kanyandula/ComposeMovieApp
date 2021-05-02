@@ -1,8 +1,10 @@
 package com.example.composemovieapp.domain.model
 
 import android.os.Parcelable
+
 import com.example.composemovieapp.di.NetworkModule
 import com.example.composemovieapp.network.model.Genre
+
 import com.example.composemovieapp.util.movieDisplayDateFormat
 import com.example.composemovieapp.util.movieResponseDateFormat
 import com.google.gson.annotations.SerializedName
@@ -16,8 +18,8 @@ data class Movie(
     val backdrop_path: String? = null,
     val genre_ids: List<Int>? = null,
     @SerializedName("genres")
-    val genres: List<Genre> = listOf(),
-    val homepage: String? = null,
+    val genres: List<Genre> = listOf() ,
+val homepage: String? = null,
     val status: String? = null,
     val release_date: String? = null,
     val media_type: String? = null,

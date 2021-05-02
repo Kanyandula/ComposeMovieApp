@@ -63,6 +63,8 @@ class MovieEntityMapper : DomainMapper<MovieEntity, Movie>{
 
 }
 
+
+
 private fun convertGenreListToString(genres: List<Genre>): String {
     val genresString = StringBuilder()
     for(genre in genres){
@@ -71,15 +73,19 @@ private fun convertGenreListToString(genres: List<Genre>): String {
     return genresString.toString()
 }
 
-private fun convertGenresToList(genresString: String?): List<Genre> {
-    val list: ArrayList<Genre> = ArrayList()
-    genresString?.let {
-        //for(genre  in it.split(",")){}
-            list.add(Genre(name = String()))
 
+private fun convertGenresToList(genresString: Genre?):  List<String> {
+    val list: ArrayList<String> = ArrayList()
+    genresString?.let {
+        for(genre  in it.toString()){
+            list.add(genre.toString())
+        }
     }
     return list
 }
+
+
+
 
 
 

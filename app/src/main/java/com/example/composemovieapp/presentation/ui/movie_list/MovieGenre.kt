@@ -4,7 +4,7 @@ import com.example.composemovieapp.presentation.ui.movie_list.MovieGenre.*
 
 enum class MovieGenre (val value: String){
 
-   ERROR ("error"),
+
    ACTION ("Action"),
    ADVENTURE ( "Adventure"),
     ANIMATION ("Animation"),
@@ -20,7 +20,7 @@ enum class MovieGenre (val value: String){
 }
 
 fun getAllMovieGenres(): List<MovieGenre>{
- return listOf(ERROR,ACTION,ADVENTURE,ANIMATION,COMEDY,DOCUMENTARY,DRAMA, FAMILY,HORROR,ROMANCE,THRILLER,WAR,WESTERN)
+ return listOf(ACTION,ADVENTURE,ANIMATION,COMEDY,DOCUMENTARY,DRAMA, FAMILY,HORROR,ROMANCE,THRILLER,WAR,WESTERN)
 }
 
 fun getMovieGenre(value: String): MovieGenre? {
