@@ -7,7 +7,7 @@ An Android application that provides both online and offline search functionalit
 - [Kotlin](https://kotlinlang.org/) 
 - MVVM Architecture
 - Compose navigation (one activity, zero fragments)
-- Retrieve Network Data from API (REST API)
+- Retrieve Network Data from API ([REST API](https://restfulapi.net/))
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) 
 - Database caching ([Room](https://developer.android.com/topic/libraries/architecture/room))
 - Pagination
