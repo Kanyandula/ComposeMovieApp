@@ -5,14 +5,14 @@ An Android application that provides both online and offline search functionalit
 
 #### Features:
 - [Kotlin](https://kotlinlang.org/) 
-- MVVM
+- MVVM Architecture
 - Compose navigation (one activity, zero fragments)
 - Retrieve Network Data from API (REST API)
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) 
 - Database caching ([Room](https://developer.android.com/topic/libraries/architecture/room))
 - Pagination
 - Monitoring Network Connectivity
-- Dependency Injection (HILT)
+- Dependency Injection ([HILT](https://dagger.dev/hilt/components.html))
 - Use cases
 - Datastore (New Shared Preferences)
 - Unit Testing ([Junit5](https://junit.org/junit5/))  
