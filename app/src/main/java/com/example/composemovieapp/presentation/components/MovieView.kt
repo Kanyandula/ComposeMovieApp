@@ -1,8 +1,11 @@
 package com.example.composemovieapp.presentation.components
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,17 +18,17 @@ import com.example.composemovieapp.util.DEFAULT_MOVIE_IMAGE
 import com.example.composemovieapp.util.IMAGE_HEIGHT
 import com.example.composemovieapp.util.loadPicture
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
-
+import androidx.compose.ui.platform.LocalContext
+import com.example.composemovieapp.util.MOVIE_WEB_URL
 
 
 @ExperimentalCoroutinesApi
 @Composable
 fun MovieView(
-    movie: Movie
+    movie: Movie,
+    movieId: Int?
 ) {
     LazyColumn(
         modifier = Modifier
@@ -51,28 +54,35 @@ fun MovieView(
 
                 }
 
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(6.dp)
                 ) {
 
-                    MovieInfo(movie = movie)
+                    MovieInfo(movie = movie, movieId = movieId)
+                   // MyButton(movieId = movieId)
 
                 }
+
 
 
             }
         }
     }
 
+
+
+
+
 @Composable
-fun BackButton() {
+fun BackButton(
+    onBackPressed: () -> Unit
+) {
 
     IconButton(modifier = Modifier.
     then(Modifier.size(24.dp)),
-        onClick = {  }) {
+        onClick =  onBackPressed) {
         Icon(
             Icons.Rounded.ArrowBack,
             "back button",

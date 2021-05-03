@@ -9,11 +9,8 @@ class MovieDto(
     @SerializedName("backdrop_path")
     val backdropPath: String? = null,
 
-    @SerializedName("genres")
-    val genres:List<Genre> = listOf(),
-
-    @SerializedName("homepage")
-    val homepage: String? = null,
+   @SerializedName("genres")
+    val genres:List<Genre>? = null,
 
     @SerializedName("id")
     val id: Int? = null,

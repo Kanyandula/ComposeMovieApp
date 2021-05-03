@@ -1,20 +1,22 @@
 package com.example.composemovieapp.presentation.ui.movie
 
 
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Scaffold
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.composemovieapp.presentation.components.GenericDialog
 import com.example.composemovieapp.presentation.components.LoadingMovieShimmer
 import com.example.composemovieapp.presentation.components.MovieView
+import com.example.composemovieapp.presentation.components.NothingHere
 import com.example.composemovieapp.presentation.theme.AppTheme
 import com.example.composemovieapp.util.IMAGE_HEIGHT
+
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -30,7 +32,7 @@ fun MovieDetailScreen(
 ) {
 
     if (movieId == null) {
-        TODO("Show Invalid Movie")
+        NothingHere()
     } else {
         val onLoad = viewModel.onLoad.value
         if (!onLoad) {
@@ -57,8 +59,11 @@ fun MovieDetailScreen(
                     scaffoldState.snackbarHostState
                 }
             ) {
-                Box(modifier = Modifier.fillMaxWidth()
-                    .padding(8.dp) ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
                     if (loading && movie == null)
                         LoadingMovieShimmer(imageHeight = IMAGE_HEIGHT.dp)
                     else {
@@ -66,14 +71,16 @@ fun MovieDetailScreen(
                             if (it.id == 1) { // create a fake error
 
                             } else {
+
                                 MovieView(
                                     movie = it,
+                                    movieId = movieId
+                                )
 
-                                    )
+
                             }
                         }
                     }
-
                 }
             }
 
@@ -81,3 +88,7 @@ fun MovieDetailScreen(
     }
 
 }
+
+
+
+

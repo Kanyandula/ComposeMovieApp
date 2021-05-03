@@ -18,8 +18,7 @@ data class Movie(
     val backdrop_path: String? = null,
     val genre_ids: List<Int>? = null,
     @SerializedName("genres")
-    val genres: List<Genre> = listOf() ,
-val homepage: String? = null,
+    val genres:List<Genre>? = null,
     val status: String? = null,
     val release_date: String? = null,
     val media_type: String? = null,

@@ -24,7 +24,6 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
             title = model.title,
             vote_average = model.voteAverage,
             vote_count =  model.voteCount,
-            homepage = model.homepage,
             status =  model.status
         )
     }
@@ -49,8 +48,6 @@ class MovieDtoMapper : DomainMapper<MovieDto, Movie> {
            title = domainModel.title,
            voteAverage = domainModel.vote_average,
            voteCount = domainModel.vote_count,
-           homepage = domainModel.homepage,
-
            status = domainModel.status
 
        )

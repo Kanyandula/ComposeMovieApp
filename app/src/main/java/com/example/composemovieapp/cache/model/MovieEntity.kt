@@ -19,9 +19,6 @@ data class  MovieEntity(
     @ColumnInfo(name ="backdrop_path")
     var backdropPath: String? = null,
 
-    @ColumnInfo(name ="homepage")
-    var homepage: String? = null,
-
     @ColumnInfo(name ="media_type")
     var mediaType: String? = null,
 
@@ -43,15 +40,6 @@ data class  MovieEntity(
     @ColumnInfo(name ="release_date")
     var releaseDate: String? = null,
 
-
-    @ColumnInfo(name ="runtime")
-    var runtime: Int? = null,
-
-
-    @ColumnInfo(name ="status")
-    var status: String? = null,
-
-
     @ColumnInfo(name ="title")
     var title: String? = null,
 
@@ -62,14 +50,15 @@ data class  MovieEntity(
     @ColumnInfo(name ="vote_count")
     var voteCount: Int? = null,
 
-    @ColumnInfo(name ="genres")
-    var genres:  List<Genre> = listOf() ,
+  //  @ColumnInfo(name ="genres")
+
+   // var genres: List<Genre> = listOf(),
 )
 
 class Converters {
 
     @TypeConverter
-    fun listToJson(value: List<Genre>?) = Gson().toJson(value)
+    fun listToJson(value: List<Genre>?): String? = Gson().toJson(value)
 
     @TypeConverter
     fun jsonToList(value: String) = Gson().fromJson(value, Array<Genre>::class.java).toList()

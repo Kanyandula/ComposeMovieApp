@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -50,6 +53,30 @@ fun MovieCard(movie: Movie, isFirstCard: Boolean = false, onClick: () -> Unit) {
                 fontWeight = FontWeight.Bold,
                 modifier = padding
             )
+        }
+        ColumnSpacer(4)
+        // Rating
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Star
+
+            Icon(Icons.Rounded.Star,
+                modifier = Modifier
+                    .padding(end = 4.dp)
+                    .size(12.dp),
+                contentDescription = "Star Ratings",
+                tint = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
+            )
+
+            // Rating
+            Text(
+                text = movie.rating,
+                color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                style = MaterialTheme.typography.overline,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+
         }
         ColumnSpacer(4)
 

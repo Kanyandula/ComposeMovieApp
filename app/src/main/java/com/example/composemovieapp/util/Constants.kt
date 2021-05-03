@@ -16,6 +16,7 @@ const val MOVIE_DETAILS_URL = "movie/{movie_id}?api_key=633c29f375c222facd212d38
 const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w780"
 const val DEFAULT_MOVIE_IMAGE = R.drawable.images
 const val DEFAULT_BACK_IMAGE = R.drawable.ic_baseline_arrow_back_24
+const val MOVIE_WEB_URL = "https://www.themoviedb.org/movie/"
 
 
 val movieResponseDateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH)

@@ -8,8 +8,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -71,7 +70,7 @@ fun SearchAppBar(
                         modifier = Modifier.padding(8.dp),
                         onClick = onToggleTheme,
                     ) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "Toggle Dark/Light Theme")
+                        Icon(Icons.Filled.LightMode, contentDescription = "Toggle Dark/Light Theme")
                     }
 
                 }

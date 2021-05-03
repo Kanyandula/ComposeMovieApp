@@ -1,20 +1,23 @@
 package com.example.composemovieapp.presentation.compose.layout
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.example.composemovieapp.domain.model.Movie
-import com.example.composemovieapp.util.genreToCommaSeparatedString
+import com.example.composemovieapp.util.MOVIE_WEB_URL
 import java.util.*
 
 @Composable
-fun MovieInfo(movie: Movie) {
+fun MovieInfo(movie: Movie, movieId: Int?  ) {
     ColumnSpacer(16)
 
         val padding = Modifier.padding(horizontal = 16.dp)
@@ -49,26 +52,35 @@ fun MovieInfo(movie: Movie) {
             .padding(horizontal = 12.dp),
         color = MaterialTheme.colors.onSurface.copy(alpha = 0.3F)
     )
-    Text(
-        text = "Genre",
-        style = typography.h5,
-        fontWeight = FontWeight.Bold,
-        maxLines = 4,
-        modifier = padding
-    )
+
 
     ColumnSpacer(8)
+    MyButton(movieId = movieId)
     CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
-        movie.genres.genreToCommaSeparatedString().let {
-            Text(
-                    text = it,
+        movie.genres.let {
+            if (it != null) {
+                Text(
+                    text = it.joinToString(),
                     style = typography.body2,
                     maxLines = 4,
                     modifier = padding
                 )
+            }
         }
     }
-    Spacer(Modifier.height(16.dp))
+
+}
+
+@Composable
+fun MyButton(movieId: Int?  ) {
+
+    val context = LocalContext.current
+    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("$MOVIE_WEB_URL${movieId}"))
+
+    OutlinedButton(onClick = { context.startActivity(webIntent) }, modifier = Modifier.padding(8.dp)) {
+        Text( text = "OPEN IMDB",
+            style = typography.h5)
+    }
 }
 
 
@@ -84,14 +96,15 @@ fun MovieMetadata(
             background = MaterialTheme.colors.primary.copy(alpha = 0.8f)
         )
         withStyle(tagStyle) {
-            append("  ${movie.original_language?.language()}  ")
+            append("  ${ movie.media_type?.toUpperCase(Locale.ROOT)}  ")
         }
         append(divider)
         append(movie.date)
         append(divider)
         append(movie.rating)
         append(divider)
-        movie.media_type?.let { append(it.toUpperCase(Locale.ROOT)) }
+        movie.original_language?.language()?.let { append(it) }
+
 
 
     }
@@ -114,3 +127,4 @@ fun String.language(): String {
 
 @Composable
 fun ColumnSpacer(value: Int) = Spacer(modifier = Modifier.height(value.dp))
+
