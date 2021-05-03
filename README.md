@@ -1,7 +1,7 @@
 # Movie Guru
 An Android application that provides both online and offline search functionality for Movies and TV shows from TheMovieDB open API. Written in Kotlin with Jetpack Compose toolkit, a modern way for designing Android UI. This project is tested(Unit Testing), it's not Legacy code. 
 
-<img src="https://media.giphy.com/media/M5Vr1bAewGABNLSVnS/giphy.gif" width="300"/> | <img src="https://media.giphy.com/media/cyqNbrkq8MZGKLsZNB/giphy.gif" width="300"/>
+<img src="https://media.giphy.com/media/M5Vr1bAewGABNLSVnS/giphy.gif" width="300"/> | <img src="https://media.giphy.com/media/GBh3Suq4JzxwoHan3S/giphy.gif" width="300"/>
 
 #### Features:
 - [Kotlin](https://kotlinlang.org/) 
